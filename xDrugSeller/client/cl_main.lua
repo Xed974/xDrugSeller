@@ -108,8 +108,14 @@ end)
 
 RegisterCommand(xDrugSeller.Commande, function()
     if not drugsell then
-        drugsell = true
-        ESX.ShowNotification("Mode vente drogue ~g~activer~s~.")
+        ESX.TriggerServerCallback('xDrugSeller:checkcops', function(can)
+            if can then
+                drugsell = true
+                ESX.ShowNotification("Mode vente drogue ~g~activer~s~.")
+            else
+                ESX.ShowNotification("~r~Pas assez de policier en ville.")
+            end
+        end)
     else
         drugsell = false
         ESX.ShowNotification("Mode vente drogue ~r~désactiver~s~.")
