@@ -1,6 +1,37 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+local copsConnected = 0
+
+local function getCops()
+    local xPlayers = ESX.GetPlayers()
+    copsConnected = 0
+
+    for i = 1, #xPlayers, 1 do
+        local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+
+        if (xPlayer.getJob().name) == 'police' then
+            copsConnected = copsConnected + 1
+        end
+    end
+
+    SetTimeout(100 * 1000, function() getCops() end)
+end
+
+getCops()
+
+ESX.RegisterServerCallback('xDrugSeller:checkcops', function(source, cb)
+    local source = source
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    if (not xPlayer) then return end
+    if copsConnected >= xDrugSeller.PoliceRequis then
+        cb(true)
+    else
+        cb(false)
+    end
+end)
+
 ESX.RegisterServerCallback("xDrugSeller:getDrug", function(source, cb, drug, druglabel, gain, selling)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
