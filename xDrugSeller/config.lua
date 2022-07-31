@@ -15,6 +15,7 @@ xDrugSeller = {
     Commande = "drugsell",
 
     JobPolice = {"police", "sherrif"},
+    PoliceRequis = 1,
     Drugs = {
         {Label =  "Weed", Name = "weed", MinPrice = 10, MaxPrice = 20},
         {Label =  "Cocaine", Name = "coke", MinPrice = 15, MaxPrice = 25}
