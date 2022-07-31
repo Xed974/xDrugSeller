@@ -10,8 +10,10 @@ local function getCops()
     for i = 1, #xPlayers, 1 do
         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
 
-        if (xPlayer.getJob().name) == 'police' then
-            copsConnected = copsConnected + 1
+        for _,v in pairs(xDrugSeller.JobPolice) do
+            if (xPlayer.getJob().name) == v then
+                copsConnected = copsConnected + 1
+            end
         end
     end
 
