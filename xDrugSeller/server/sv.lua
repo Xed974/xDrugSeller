@@ -1,11 +1,9 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-local copsConnected = 0
-
 local function getCops()
     local xPlayers = ESX.GetPlayers()
-    copsConnected = 0
+    local copsConnected = 0
 
     for i = 1, #xPlayers, 1 do
         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
@@ -16,18 +14,16 @@ local function getCops()
             end
         end
     end
-
-    SetTimeout(100 * 1000, function() getCops() end)
+    return copsConnected
 end
-
-getCops()
 
 ESX.RegisterServerCallback('xDrugSeller:checkcops', function(source, cb)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
+    local copsCount = getCops()
 
     if (not xPlayer) then return end
-    if copsConnected >= xDrugSeller.PoliceRequis then
+    if copsCount >= xDrugSeller.PoliceRequis then
         cb(true)
     else
         cb(false)
