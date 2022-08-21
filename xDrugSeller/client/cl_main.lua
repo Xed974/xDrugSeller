@@ -80,12 +80,14 @@ local function RequestAndWaitModel(modelName) -- Request un modèle de véhicule
 end
 
 --
+local pnj = nil
 local drugsell = false
 local open = false
 local mainMenu = RageUI.CreateMenu("Choix drogue", "Interaction", nil, nil, "root_cause5", xDrugSeller.Banniere)
 mainMenu.Display.Header = true
 mainMenu.Closed = function()
     open = false
+    FreezeEntityPosition(pnj, false)
 end
 
 RegisterNetEvent('xDrugSeller:blips')
@@ -108,14 +110,8 @@ end)
 
 RegisterCommand(xDrugSeller.Commande, function()
     if not drugsell then
-        ESX.TriggerServerCallback('xDrugSeller:checkcops', function(can)
-            if can then
-                drugsell = true
-                ESX.ShowNotification("Mode vente drogue ~g~activer~s~.")
-            else
-                ESX.ShowNotification("~r~Pas assez de policier en ville.")
-            end
-        end)
+        drugsell = true
+        ESX.ShowNotification("Mode vente drogue ~g~activer~s~.")
     else
         drugsell = false
         ESX.ShowNotification("Mode vente drogue ~r~désactiver~s~.")
@@ -124,6 +120,7 @@ end)
 TriggerEvent('chat:addSuggestion', ('/%s'):format(xDrugSeller.Commande), 'Vous permet d\'activer et de désactiver le mode vente de drogue.', nil)
 
 local function MenuSelection(outEntity, pPos)
+    pnj = outEntity
     if open then
         open = false
         RageUI.Visible(mainMenu, false)
