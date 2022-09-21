@@ -144,54 +144,54 @@ local function MenuSelection(outEntity, pPos)
                                 DrawMarker(0, coord.x, coord.y, coord.z + 1.1, 0.0, 0.0, 0.0, 0.0,0.0,0.0, 0.2, 0.2, 0.2, xDrugSeller.MarkerColorR, xDrugSeller.MarkerColorG, xDrugSeller.MarkerColorB, xDrugSeller.MarkerOpacite, xDrugSeller.MarkerSaute, true, p19, xDrugSeller.MarkerTourne)
                             end,
                             onSelected = function()
-        			ESX.TriggerServerCallback("xDrugSeller:checkcops", function(can)
-					if can then
-						local chance = math.random(0 , 100)
-						local callingchance = math.random(1, 2)
-						local gain = math.random(v.MinPrice, v.MaxPrice)
-						local selling = math.random(1, 4)
+        			            ESX.TriggerServerCallback("xDrugSeller:checkcops", function(can)
+                                    if can then
+                                        local chance = math.random(0 , 100)
+                                        local callingchance = math.random(1, 2)
+                                        local gain = math.random(v.MinPrice, v.MaxPrice)
+                                        local selling = math.random(1, 4)
 
-						if chance <= 13 then
-						    RageUI.CloseAll()
-						    FreezeEntityPosition(PlayerPedId(), true)
-						    ESX.ShowAdvancedNotification("Citoyen", "Discussion", "Attendez un instant, je réfléchis.", "CHAR_ARTHUR", 1)
-						    if callingchance == 2 then TriggerServerEvent("xDrugSeller:Call", pPos) end
-						    local pCreate = CreateObject(GetHashKey('prop_phone_cs_frank'), 0, 0, 0, true)
-						    AttachEntityToEntity(pCreate, outEntity, GetPedBoneIndex(outEntity, 57005), 0.13, 0.02, 0.0, 90.0, 0, 0, 1, 1, 0, 1, 0, 1)
-						    animsAction({ lib = "cellphone@", anim = "cellphone_text_read_base" }, outEntity)
-						    Wait(4000)
-						    ESX.ShowAdvancedNotification("Citoyen", "Discussion", "Je ne suis pas intéressé !", "CHAR_ARTHUR", 1)
-						    FreezeEntityPosition(PlayerPedId(), false)
-						    FreezeEntityPosition(outEntity, false)
-						    DeleteObject(pCreate)
-						else
-						    ESX.TriggerServerCallback("xDrugSeller:getDrug", function(can)
-							if can then
-							    RageUI.CloseAll()
-							    RequestAndWaitDict("mp_common")
-							    RequestAndWaitModel("prop_meth_bag_01")                
-							    SetPedTalk(outEntity)
-							    PlayAmbientSpeech1(outEntity, 'GENERIC_HI', 'SPEECH_PARAMS_STANDARD')                     
-							    local cCreate = CreateObject(GetHashKey("prop_meth_bag_01"), 0, 0, 0, true)
-							    AttachEntityToEntity(cCreate, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 57005), 0.13, 0.02, 0.0, -90.0, 0, 0, 1, 1, 0, 1, 0, 1)
-							    TaskPlayAnim(PlayerPedId(), 'mp_common', 'givetake1_a', 8.0, 8.0, -1, 0, 1, false, false, false)
-							    TaskPlayAnim(outEntity, 'mp_common', 'givetake1_a', 8.0, 8.0, -1, 0, 1, false, false, false)
-							    Wait(1000)
-							    PlaySoundFrontend(-1, "Bomb_Disarmed", "GTAO_Speed_Convoy_Soundset", 0)
-							    TaskWanderStandard(outEntity, 10.0, 10)
-							    PlayAmbientSpeech1(outEntity, 'GENERIC_THANKS', 'SPEECH_PARAMS_STANDARD')
-							    SetEntityAsMissionEntity(outEntity, true, true)
-							    SetPedCanRagdollFromPlayerImpact(outEntity, true)
-							    DeleteObject(cCreate)
-							    FreezeEntityPosition(outEntity, false)
-							else
-							    FreezeEntityPosition(outEntity, false)
-							    RageUI.CloseAll()
-							end
-						    end, v.Name, v.Label, gain, selling)
-						end
-					end
-        			end)
+                                        if chance <= 13 then
+                                            RageUI.CloseAll()
+                                            FreezeEntityPosition(PlayerPedId(), true)
+                                            ESX.ShowAdvancedNotification("Citoyen", "Discussion", "Attendez un instant, je réfléchis.", "CHAR_ARTHUR", 1)
+                                            if callingchance == 2 then TriggerServerEvent("xDrugSeller:Call", pPos) end
+                                            local pCreate = CreateObject(GetHashKey('prop_phone_cs_frank'), 0, 0, 0, true)
+                                            AttachEntityToEntity(pCreate, outEntity, GetPedBoneIndex(outEntity, 57005), 0.13, 0.02, 0.0, 90.0, 0, 0, 1, 1, 0, 1, 0, 1)
+                                            animsAction({ lib = "cellphone@", anim = "cellphone_text_read_base" }, outEntity)
+                                            Wait(4000)
+                                            ESX.ShowAdvancedNotification("Citoyen", "Discussion", "Je ne suis pas intéressé !", "CHAR_ARTHUR", 1)
+                                            FreezeEntityPosition(PlayerPedId(), false)
+                                            FreezeEntityPosition(outEntity, false)
+                                            DeleteObject(pCreate)
+                                        else
+                                            ESX.TriggerServerCallback("xDrugSeller:getDrug", function(can)
+                                            if can then
+                                                RageUI.CloseAll()
+                                                RequestAndWaitDict("mp_common")
+                                                RequestAndWaitModel("prop_meth_bag_01")                
+                                                SetPedTalk(outEntity)
+                                                PlayAmbientSpeech1(outEntity, 'GENERIC_HI', 'SPEECH_PARAMS_STANDARD')                     
+                                                local cCreate = CreateObject(GetHashKey("prop_meth_bag_01"), 0, 0, 0, true)
+                                                AttachEntityToEntity(cCreate, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 57005), 0.13, 0.02, 0.0, -90.0, 0, 0, 1, 1, 0, 1, 0, 1)
+                                                TaskPlayAnim(PlayerPedId(), 'mp_common', 'givetake1_a', 8.0, 8.0, -1, 0, 1, false, false, false)
+                                                TaskPlayAnim(outEntity, 'mp_common', 'givetake1_a', 8.0, 8.0, -1, 0, 1, false, false, false)
+                                                Wait(1000)
+                                                PlaySoundFrontend(-1, "Bomb_Disarmed", "GTAO_Speed_Convoy_Soundset", 0)
+                                                TaskWanderStandard(outEntity, 10.0, 10)
+                                                PlayAmbientSpeech1(outEntity, 'GENERIC_THANKS', 'SPEECH_PARAMS_STANDARD')
+                                                SetEntityAsMissionEntity(outEntity, true, true)
+                                                SetPedCanRagdollFromPlayerImpact(outEntity, true)
+                                                DeleteObject(cCreate)
+                                                FreezeEntityPosition(outEntity, false)
+                                            else
+                                                FreezeEntityPosition(outEntity, false)
+                                                RageUI.CloseAll()
+                                            end
+                                            end, v.Name, v.Label, gain, selling)
+                                        end
+                                    end
+        			            end)
                             end
                         })
                     end
