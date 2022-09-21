@@ -49,13 +49,10 @@ end)
 RegisterNetEvent('xDrugSeller:Call')
 AddEventHandler('xDrugSeller:Call', function(pPos)
     local source = source
-    local xPlayer = ESX.GetPlayerFromId(source)
 	local xPlayers = ESX.GetPlayers()
 
-    if (not xPlayer) then return end
     for i = 1, #xPlayers, 1 do
         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-        local job = xPlayer.getJob()
 
         for _,v in pairs(xDrugSeller.JobPolice) do
             if (xPlayer.getJob().name) == v then
